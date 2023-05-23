@@ -21,12 +21,5 @@ grob_s <- rasterGrob(channel_s, interpolate = FALSE)
 grob_v <- rasterGrob(channel_v, interpolate = FALSE)
 grob_gray <- rasterGrob(image_gray, interpolate = FALSE)
 
-# Afficher les sous-graphiques
-# Créer les objets rasterGrob pour les sous-graphiques
-grob_h <- rasterGrob(channel_h, interpolate = FALSE)
-grob_s <- rasterGrob(channel_s, interpolate = FALSE)
-grob_v <- rasterGrob(channel_v, interpolate = FALSE)
-grob_gray <- rasterGrob(image_gray, interpolate = FALSE)
-
 # Afficher les sous-graphiques ensemble
 grid.arrange(grob_h, grob_s, grob_v, grob_gray, ncol = 2, nrow = 2)

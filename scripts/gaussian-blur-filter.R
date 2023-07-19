@@ -17,6 +17,21 @@ fftshift2D <- function(x) {
   apply(x, 1, fftshift) %>% apply(1, fftshift)
 }
 
+# Fonction ifftshift
+ifftshift <- function(x) {
+  shift <- if (length(x) %% 2 == 0) {
+    length(x) %/% 2
+  } else {
+    length(x) %/% 2 + 1
+  }
+  c(tail(x, -shift), head(x, shift))
+}
+
+# Fonction ifftshift pour 2D
+ifftshift2D <- function(x) {
+  apply(x, 1, ifftshift) %>% apply(1, ifftshift)
+}
+
 
 # Lecture et conversion en niveaux de gris de l'image
 im <- load.image("./images/lena.jpg") %>% grayscale()
@@ -31,7 +46,7 @@ gauss_kernel <- gauss_kernel[1:im_dim[1], 1:im_dim[1]]
 freq <- fft(im)
 
 # FFT du noyau Gaussien et décalage FFT
-freq_kernel <- fft(fftshift2D(gauss_kernel))
+freq_kernel <- fft(ifftshift2D(gauss_kernel))
 
 # Extraire la première tranche 2D de freq
 freq_2d <- freq[,,1,1]
@@ -42,7 +57,6 @@ convolved <- freq_2d * freq_kernel
 # Retour à l'espace image
 # Applique la Transformée de Fourier Inverse
 im1 <- Re(fft(convolved, inverse = TRUE))
-
 
 # Affichage des images et des spectres
 par(mfrow = c(2,3), mar = c(1,1,3,1))

@@ -1,5 +1,6 @@
 library(imager)
 library(ggplot2)
+library(reshape2)
 
 plot_hist <- function(r, g, b, title='') {
   df <- data.frame(
